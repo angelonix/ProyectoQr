@@ -25,6 +25,11 @@ const routes: Routes = [
     path: 'recuperar-contrasena',
     loadChildren: () => import('./pages/recuperar-contrasena/recuperar-contrasena.module').then( m => m.RecuperarContrasenaPageModule)
   },
+
+  {
+    path: 'registros-clases',
+    loadChildren: () => import('./pages/registros-clases/registros-clases.module').then( m => m.RegistrosClasesPageModule)
+  },
   {
     path: '**',
     loadChildren: () => import('./pages/error404/error404.module').then( m => m.Error404PageModule)

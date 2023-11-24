@@ -22,7 +22,7 @@ export class HomePage implements AfterViewInit {
   mensajeConSaltoDeLinea: string = '';
 
   ngVersion = VERSION.full;
-  private scanned = false;/* escanner para una  vez*/
+  private scanned = false;
 
   @ViewChild('scanner', { static: false }) scanner!: ZXingScannerComponent;
   @ViewChild('title', { read: ElementRef }) title!: ElementRef;
@@ -50,12 +50,11 @@ export class HomePage implements AfterViewInit {
   ) {}
 
   async ngOnInit() {
-    // Obtén el usuario almacenado en las preferencias
     const usuariosJSON = await Preferences.get({ key: 'usuarios' });
     const usuarios = usuariosJSON && usuariosJSON.value ? JSON.parse(usuariosJSON.value) : [];
 
     if (usuarios.length > 0) {
-      const primerUsuario = usuarios[0]; // muestra el primer usuario
+      const primerUsuario = usuarios[0]; 
       this.nombreUsuario = primerUsuario.usuario;
       this.rut = primerUsuario.rut || '';
       this.nombre = primerUsuario.nombre || '';
@@ -82,7 +81,6 @@ export class HomePage implements AfterViewInit {
       this.hasDevices = true;
       this.availableDevices = devices;
 
-      // Selects the device's back camera by default
       for (const device of devices) {
         if (/back|rear|environment/gi.test(device.label)) {
           this.currentDevice = device;
@@ -102,26 +100,17 @@ export class HomePage implements AfterViewInit {
     );
   }
 
-  handleQrCodeResult(resultString: string | null) {
-    if (!this.scanned && resultString) {
-      this.scanned = true; // Establece en true para evitar escanear nuevamente
-
+handleQrCodeResult(resultString: string | null) {
+  if (!this.scanned && resultString) {
+    this.scanned = true; 
+      
       const now = new Date();
       const horaActual = now.toLocaleTimeString();
-      const fechaActual = now.toLocaleDateString();
-  
-      const mensajeOriginal = `${JSON.stringify(resultString)}, Fecha: ${fechaActual}`;
-      //console.log(resultString);
-  
-      const mensajeSinComilla = mensajeOriginal.replace(/"/g, ' ');
-  
-      // Utiliza Preferences 
-      Preferences.set({ key: 'mensaje', value: mensajeSinComilla });
-      console.log(mensajeOriginal);
-      
+
+        
       Preferences.set({ key: 'hora', value: horaActual });
   
-      this.router.navigate(['/registro-clase']);
+      this.router.navigate(['/registros-clases']);
     }
   }
   

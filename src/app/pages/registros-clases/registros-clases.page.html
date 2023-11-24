@@ -1,0 +1,54 @@
+<ion-header [translucent]="true" class="custom-header">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+      <ion-title class="app-title">Registros Clases</ion-title>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="container">
+    <div class="row">
+      <ion-card>
+      </ion-card>
+      <ion-card-content>
+        <h1 [innerHTML]="mensajeDesdePreferences"></h1>
+      </ion-card-content>
+      <ion-card>
+        <ion-card-header>
+          <ion-title>Datos Del Alumno</ion-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-list>
+            <ion-item *ngFor="let usuario of usuarios">
+              <ion-label>
+                <ng-container *ngIf="usuario.region">
+                  <strong>Región:</strong> {{ usuario.region.nombre }}<br>
+                </ng-container>
+                <ng-container *ngIf="usuario.comuna">
+                  <strong>Comuna:</strong> {{ usuario.comuna.nombre }}<br>
+                </ng-container>
+                <strong>Nombre:</strong> {{ usuario.nombre }} <br>
+                <strong>Apellido:</strong> {{ usuario.apellido }} <br>
+                <strong>RUT:</strong> {{ usuario.rut }} <br>
+
+                <strong>Usuario:</strong> {{ usuario.usuario }} <br>
+
+                <strong>La hora:</strong> {{ horaDesdePreferences }}<br>
+                <strong *ngIf="latitude !== undefined && longitude !== undefined">
+                  Latitud: {{ latitude }}, Longitud: {{ longitude }}
+                </strong>
+                
+                
+
+              </ion-label>
+            </ion-item>
+          </ion-list>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
+
+  <ion-img class="img-acreditacion" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Logo_DuocUC.svg/2560px-Logo_DuocUC.svg.png"></ion-img>
+</ion-content>
