@@ -100,14 +100,22 @@ export class HomePage implements AfterViewInit {
     );
   }
 
-handleQrCodeResult(resultString: string | null) {
-  if (!this.scanned && resultString) {
-    this.scanned = true; 
-      
+  handleQrCodeResult(resultString: string | null) {
+    if (!this.scanned && resultString) {
+      this.scanned = true; 
+
       const now = new Date();
       const horaActual = now.toLocaleTimeString();
+      const fechaActual = now.toLocaleDateString();
+  
+      const mensajeOriginal = `${JSON.stringify(resultString)}, Fecha: ${fechaActual}`;
 
-        
+  
+      const mensajeSinComilla = mensajeOriginal.replace(/"/g, ' ');
+  
+      Preferences.set({ key: 'mensaje', value: mensajeSinComilla });
+      console.log(mensajeOriginal);
+      
       Preferences.set({ key: 'hora', value: horaActual });
   
       this.router.navigate(['/registros-clases']);
